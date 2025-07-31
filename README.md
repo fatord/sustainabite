@@ -8,7 +8,6 @@ A Next.js application that helps you find recipes based on ingredients you alrea
 - Filter recipes by dietary preferences (vegetarian, vegan, gluten-free, etc.)
 - View recipe details including used and missing ingredients
 - Get a "best match" recipe based on your ingredients
-- "Surprise me" feature to randomly select a recipe
 
 ## Getting Started
 
