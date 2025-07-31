@@ -1,6 +1,6 @@
-# Appetite Finder
+# Sustainabite
 
-A Next.js application that helps you find recipes based on ingredients you already have in your kitchen. This project uses the Spoonacular API to search for recipes and filter them by dietary preferences.
+A Next.js application that helps you find recipes based on ingredients you already have in your kitchen. This project searches for recipes and filters them by dietary preferences.
 
 ## Features
 
@@ -16,7 +16,7 @@ A Next.js application that helps you find recipes based on ingredients you alrea
 
 - Node.js 18.x or higher
 - npm or yarn
-- Spoonacular API key (get one at [https://spoonacular.com/food-api](https://spoonacular.com/food-api))
+- Spoonacular API key and Gemini API key
 
 ### Installation
 
@@ -41,10 +41,11 @@ yarn install
 cp .env.example .env.local
 ```
 
-Edit `.env.local` and add your Spoonacular API key:
+Edit `.env.local` and add your Spoonacular API key and Gemini API key:
 
 ```
 SPOONACULAR_KEY=your_api_key_here
+GEMINI_KEY=your_api_key_here
 ```
 
 4. Run the development server
@@ -72,8 +73,3 @@ yarn dev
 - React 19
 - TypeScript
 - Tailwind CSS
-- Spoonacular API
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
