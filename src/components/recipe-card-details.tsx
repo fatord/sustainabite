@@ -156,7 +156,7 @@ export default function RecipeCardDetails({ recipe }: { recipe: Recipe }) {
                 </div>
               )}
 
-              {details.tips?.length > 0 && (
+              {details.tips && details.tips.length > 0 && (
                 <div>
                   <h4 className="font-semibold text-text-primary mb-1">Tips</h4>
                   <ul className="list-disc pl-4">
