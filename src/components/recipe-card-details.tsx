@@ -140,18 +140,18 @@ export default function RecipeCardDetails({ recipe }: { recipe: Recipe }) {
                 </div>
               </div>
 
-              {details.dietaryInfo?.length > 0 && (
+              {details.dietaryInfo && details.dietaryInfo.length > 0 && (
                 <div>
                   <h4 className="font-semibold text-text-primary mb-1">Tags</h4>
                   <div className="flex flex-wrap gap-1">
                     {details.dietaryInfo.map((tag, i) => (
-                      <span
-                        key={i}
-                        className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                     <span
+                      key={i}
+                      className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary"
+                    >
+                      {tag}
+                    </span>
+                   ))}
                   </div>
                 </div>
               )}
