@@ -22,9 +22,22 @@ export default function Home() {
     },
   });
 
+  const [apiTimedOut, setApiTimedOut] = useState(false);
+
   const handleStateChange = useCallback((newState: IngredientSelectorState) => {
     console.log('Search state updated:', newState);
     setSearchState(newState);
+    setApiTimedOut(false); // Reset timeout flag on new search
+
+    // Set a timeout for API fallback message (e.g., 7 seconds)
+    const timeoutId = setTimeout(() => {
+      setApiTimedOut(true);
+    }, 7000);
+
+    // Clear timeout if response is fast enough (simulate by clearing manually in real fetch logic)
+    setTimeout(() => {
+      clearTimeout(timeoutId);
+    }, 6900); // Placeholder: Replace with real response logic
   }, []);
 
   const handleSignIn = () => {
@@ -70,6 +83,12 @@ export default function Home() {
               <IngredientSelector onStateChange={handleStateChange} initialState={searchState} />
             </div>
           </div>
+
+          {apiTimedOut && (
+            <div className="mt-8 text-center text-red-500 text-sm">
+              API limit may have been reached or the request timed out. We apologize for the inconvenience.
+            </div>
+          )}
 
           <div
             aria-hidden="true"
