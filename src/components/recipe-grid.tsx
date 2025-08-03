@@ -57,12 +57,14 @@ export default function RecipeGrid({
 }: Props) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
     const fetchRecipes = async () => {
       const { ingredients, filters } = searchState;
       if (!ingredients.length) return;
       setLoading(true);
+      setApiError(false);
       try {
         const diets = Object.entries(filters)
           .filter(([_, enabled]) => enabled)
@@ -75,11 +77,24 @@ export default function RecipeGrid({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         });
+
+        if (!res.ok) {
+          setApiError(true);
+          return;
+        }
+
         const data: Recipe[] = await res.json();
+
+        if (!data || !Array.isArray(data)) {
+          setApiError(true);
+          return;
+        }
+
         setRecipes(data);
         setLatestRecipes?.(data);
       } catch (err) {
         console.error("Error fetching recipes:", err);
+        setApiError(true);
       } finally {
         setLoading(false);
       }
@@ -200,6 +215,12 @@ export default function RecipeGrid({
           <p className="mt-10 text-center text-text-muted">Loading recipes...</p>
         )}
 
+        {apiError && (
+          <div className="mt-10 text-center text-red-500 text-sm">
+            API limit may have been reached or the request timed out. We apologize for the inconvenience.
+          </div>
+        )}
+
         {featuredRecipe && (
           <div className="mt-16 max-w-2xl mx-auto">
             <h3 className="text-xl font-semibold text-text-primary mb-6 text-center">
@@ -226,7 +247,7 @@ export default function RecipeGrid({
           </div>
         )}
 
-        {recipes.length === 0 && !loading && searchState.ingredients.length > 0 && (
+        {recipes.length === 0 && !loading && searchState.ingredients.length > 0 && !apiError && (
           <div className="mt-16 text-center">
             <p className="text-lg text-text-secondary">
               No recipes found with your current ingredients or filters. Try adding more
